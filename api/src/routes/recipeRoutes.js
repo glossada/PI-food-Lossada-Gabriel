@@ -1,6 +1,6 @@
 const express = require('express');
 const recipeRouter=express.Router();
-const {postRecipe, getRecipeById, getRecipesByName}=require('../controllers/recipeController');
+const {postRecipe, getRecipeById, getRecipesByName}=require('../Handlers/recipeHandler');
 
 recipeRouter.get('/:id', (req,res)=>{
 getRecipeById(req,res);

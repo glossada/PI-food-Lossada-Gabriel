@@ -1,13 +1,13 @@
 const axios = require('axios');
 const {Recipe, Diet}=require('../db');
 const {FOOD_API, QUERY_KEY}= require('../uttils/urls');
-const {API_KEY } = process.env;
-const { Op } = require('sequelize');
+const {API_KEY} = process.env;
+const {Op} = require('sequelize');
 
 const pocesarInstrucciones=(receta)=>{
     receta.instructions = receta.instructions.replace(/<\/?p>/g, "");
         return receta.instructions;
-}
+};
 
 const processRecipeBd=(receta)=>{
     const array=receta.diets;
@@ -38,6 +38,7 @@ const processRecipeBasicsBd=(receta)=>{
     const recipeMod={
         id:receta.id,
         title:receta.title,
+        healthScore:receta.healthScore,
         image:receta.image,
         diets:dietsMod,
     }
@@ -71,6 +72,7 @@ const onlyBasicRecipe=(receta)=>{
     const recetaMod={
         id:receta.id,
         title:receta.title,
+        healthScore:receta.healthScore,
         image:receta.image,
         diets:receta.diets,
     };
@@ -87,23 +89,28 @@ const  procesarRecetas=(recetas)=>{
 }
 
 const titleFilterRecipe=(recetas,name)=>{
+    if(recetas.length>0){
     const recipeFiltered=recetas.filter(receta => receta.title.toLowerCase().includes(name.toLowerCase()));
     return recipeFiltered;
+    }else{
+        return []
+    }
 }
 
-///
-const getAllRecipesApi= async (res)=>{
-    try {
+const getAllRecipesApi= async ()=>{
+   
         const {data}= await axios.get(`${FOOD_API}/complexSearch${QUERY_KEY}${API_KEY}&addRecipeInformation=true&number=100`);
+        if(data){
         const recipesMod=procesarRecetas(data.results);
         return recipesMod;
-        } catch (error) {
-            res.status(500).json({error:`Se rompio todo: ${error.message}`});
+        }else{
+            return [];
         }
+        
+        
 }
 
-const getAllRecipeBd= async (res)=>{
-    try {
+const getAllRecipeBd= async ()=>{
         const recipeFind= await Recipe.findAll({
             include:{
                 model: Diet,
@@ -114,17 +121,16 @@ const getAllRecipeBd= async (res)=>{
               }
             
         });
-
+        if(recipeFind.length>0){
         const recipeMod=processRecipesBulkBd(recipeFind)
-
         return recipeMod;
-    } catch (error) {
-        res.status(500).json({error:`Se rompio todo: ${error.message}`});
-    }
+        }else{
+            return []
+        }    
 }
 
-const getAllRecipeBdByName= async (res,name)=>{
-    try {
+const getAllRecipeBdByName= async (name)=>{
+    
         const recipeFind= await Recipe.findAll({
             where: {
               title: {
@@ -139,83 +145,64 @@ const getAllRecipeBdByName= async (res,name)=>{
               }
             }
           });
-
-        const recipeMod=processRecipesBulkBd(recipeFind)
-
+        
+        if(recipeFind.length>0){
+        const recipeMod=processRecipesBulkBd(recipeFind);
         return recipeMod;
-    } catch (error) {
-        res.status(500).json({error:`Se rompio todo: ${error.message}`});
-    }
+        }else{     
+        return [];
+        }
+    
 }
 
-///
-const getRecipeById= async(req,res)=>{
-    const {id}=req.params;
-    try {
-        if(Number.isInteger(Number(id))){
-            const {data}= await axios.get(`${FOOD_API}${id}/information/${QUERY_KEY}${API_KEY}`);
+///esto se exporta
+
+const getRecipeByIdApi = async(id)=>{
+    const {data}= await axios.get(`${FOOD_API}${id}/information/${QUERY_KEY}${API_KEY}`);
             if(data){
                 const recetasMod= precesarRecetaApi(data);
-                res.status(200).json(recetasMod)
+                return recetasMod;
             }else{
-                res.status(404).json({error:'receta no encontrada'});
+                return null;
             }
-        }else{
-            const recipeFind= await Recipe.findByPk(id, {
-                include:{
-                      model: Diet,
-                      attributes: ['name'],
-                      through:{
-                        attributes:[]
-                      }
-                    }
-                  
-            });
-            const recipeMod=processRecipeBd(recipeFind)
-            if(recipeMod){
-                res.status(200).json(recipeMod)
-            }else{
-                res.status(404).json({error:'receta no encontrada'});
+};
+
+const getRecipeByIdBd =  async (id)=>{
+    const recipeFind= await Recipe.findByPk(id, {
+        include:{
+              model: Diet,
+              attributes: ['name'],
+              through:{
+                attributes:[]
+              }
             }
-        }
-        
-    } catch (error) {
-        res.status(500).json({error:`Se rompio todo: ${error.message}`});
-    }
-
-}
-
-const getRecipesByName= async (req,res)=>{
-    const {name}=req.query;
-    if(Number.isInteger(Number(name))){
-        res.status(400).json({error:'no puede ser un numero'})
-    }
-    if(!name){
-    const recipesApi= await getAllRecipesApi(res);
-    const recipesBd= await getAllRecipeBd(res);
-    const allRecipes=[...recipesApi, ...recipesBd];
-    res.status(200).json(allRecipes);
-    }else{
-    const recipesApi= await getAllRecipesApi(res); 
-    const recipeApiFiltered=titleFilterRecipe(recipesApi,name);
-    const recipeBdFiltered=await getAllRecipeBdByName(res,name);
-    const allRecipes=[...recipeApiFiltered, ...recipeBdFiltered];
-    if(allRecipes.length===0){
-        res.status(404).json({error:'no se encontraron coincidencias'})
-    }
-
-    res.status(200).json(allRecipes);
-    }
+          
+    });
     
-
+    if(recipeFind){
+        const recipeMod=processRecipeBd(recipeFind)
+        return recipeMod
+    }else{
+        return null;
+    }
 }
 
-const postRecipe = async (req,res)=>{
-    const {title,image,summary,healthScore,instructions,diets} = req.body;
+const getAllRecipesByName =async (name)=>{  
+    const recipesApi= await getAllRecipesApi(); 
+    const recipeApiFiltered=titleFilterRecipe(recipesApi,name);
+    const recipeBdFiltered=await getAllRecipeBdByName(name);
+    const allRecipes=[...recipeApiFiltered, ...recipeBdFiltered];
+    return allRecipes;
+}
 
-    if(!title||!image||!summary||!healthScore||!instructions){
-        res.status(401).json({error:'Faltan Datos!'});
-    }
+const getAllRecipes= async () =>{
+    const recipesApi= await getAllRecipesApi();
+    const recipesBd= await getAllRecipeBd();
+    const allRecipes=[...recipesApi, ...recipesBd];
+    return allRecipes;
+}
+
+const createRecipe= async ({title,image,summary,healthScore,instructions,diets})=>{
     const recipe={
         title:title,
         image:image,
@@ -223,20 +210,14 @@ const postRecipe = async (req,res)=>{
         healthScore:healthScore,
         instructions:instructions,
     }
-
-    try {
-        const newRecipe= await Recipe.create(recipe);
-        newRecipe.addDiets(diets);
-        res.status(200).json(newRecipe);
-    } catch (error) {
-        res.status(500).json({error:'no se cargo un sorete'});
-    }
-
+    const newRecipe= await Recipe.create(recipe);
+    newRecipe.addDiets(diets);
+    return newRecipe;
 }
-
-
 module.exports={
-    postRecipe,
-    getRecipeById,
-    getRecipesByName,
+    getRecipeByIdApi,
+    getRecipeByIdBd,
+    getAllRecipesByName,
+    getAllRecipes,
+    createRecipe
 }

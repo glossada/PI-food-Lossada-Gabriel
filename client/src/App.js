@@ -1,49 +1,30 @@
 import './App.css';
-import { useState, useEffect  } from 'react';
-import axios from 'axios';
-import {Routes,Route,Navigate,useNavigate,} from 'react-router-dom';
+import {Routes,Route,} from 'react-router-dom';
 import Landing from './Views/Landing/Landing.jsx';
 import Cards from './components/Cadrs/Cards.jsx';
-import { RECIPES,DIETS } from './Utils/URL';
+import Detail from './components/Details/Details.jsx'
+import Form from './components/Form/Form.jsx'
+import NavBar from './components/NavBar/NavBar.jsx'
+import {LANDING,HOME,ABOUT,DETAIL,FORM} from './Utils/ROUTES'
 
 
 
 
 function App() {
 
-const navigate = useNavigate();
-const [recipes, setRecipes] = useState([]);
-const [access, setAccess] = useState(false);
-
-const getIn =async()=>{
-  const diets= await axios.get(DIETS);
-  const recipes= await axios.get(RECIPES);
-  if(recipes.data.length>0){
-    console.log('entro')
-    setRecipes(recipes.data);
-    setAccess(true);
-    access && navigate('/home');
-  }
-
-}
-
-useEffect(() => {
-  !access && navigate('/');
-}, [access,navigate]);
 
   return (
     <div className="App">
+      <NavBar />
        <Routes>
-         <Route path="/" element={<Landing getIn={getIn} />} />
+         <Route path={LANDING} element={<Landing  />} />
 
-         <Route path="/home" element={<Cards recipes={recipes}/>}/>
+         <Route path={HOME} element={<Cards />}/>
             
 
-         {/* <Route path='/about' element={<About/>} />
+         <Route path={FORM} element={<Form/>} /> 
 
-         <Route path='/detail/:id' element={<Detail/>} />
-
-         <Route path='/favorites' element={<Favorites/>} /> */}
+        <Route path={`${DETAIL}/:id`} element={<Detail/>} />
       </Routes>
     </div>
   );
