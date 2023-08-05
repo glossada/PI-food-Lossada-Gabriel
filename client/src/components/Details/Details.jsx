@@ -39,9 +39,9 @@ export default function SearchBar(props) {
   </ul>
 )}
         <h4>Summary:</h4>
-        {recipe.summary}
+        <p dangerouslySetInnerHTML={{ __html: recipe.summary }} />
         <h4>Instructions:</h4>
-        <p>{recipe.instructions}</p>
+        <p dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
       </div>
    );
 }

@@ -3,16 +3,16 @@ import style from "./SearchBar.module.css"
 import { useState } from "react";
 
 export default function SearchBar(props) {
-   const [id, setId]=useState("");
+   const [name, setName]=useState("");
 
    const handleChange = (event) =>{
-      setId(event.target.value);
+      setName(event.target.value);
    }
 
    return (
       <div >
-         <input  type='search'  onChange={handleChange} value={id}/>
-         <button  onClick={()=>{props.onSearch(id)}}>Add</button>
+         <input  type='search'  onChange={handleChange} value={name}/>
+         <button  onClick={()=>{props.searchByName(name)}}>Search</button>
       </div>
    );
 }

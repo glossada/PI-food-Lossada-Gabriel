@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import Card from '../Card/Card'
 import { ITEMS_PER_PAGE } from "../../Utils/URL";
-import {getRecipes,getDiets} from '../../redux/actions';
+import {getRecipes,getDiets,getRecipesByName} from '../../redux/actions';
+import SearchBar from "../SearchBar/SearchBar";
 
 const Cards = (props) =>{
 let recipes=useSelector((state)=> state.recipes);
 let diets = useSelector((state)=> state.diets);
+let recipesByName = useSelector((state)=> state.recipesByName);
 const dispatch = useDispatch();
 
 const [recipesMod, setRecipesMod]=useState([]);
@@ -55,10 +57,19 @@ useEffect(() => {
     setItems([...recipesMod].splice(0, ITEMS_PER_PAGE));
   },[recipesMod])
 
+  useEffect(() => {
+    if (recipesByName.length > 0) {
+      setRecipesMod([...recipesByName]);
+      setCurrentPage(0);
+    }
+  }, [recipesByName]);
+
   // Si recipes aún no se ha cargado, puedes mostrar un mensaje de carga
   if (recipes.length === 0) {
     return <div>Loading...</div>;
   }
+
+  
 
   const sortRecipesByName=()=>{
    let recipesOrder = [...recipesMod].sort((a, b) => {
@@ -111,6 +122,14 @@ useEffect(() => {
    }
   }
 
+  const searchByName = (name)=>{
+    if(name.length===0){
+      setRecipesMod([...recipes]);
+    }else{
+    dispatch(getRecipesByName(name));
+    }
+  }
+
     return (
         <div >
           <div>
@@ -125,6 +144,8 @@ useEffect(() => {
           </option>
         ))}
       </select>
+      <h4>Search by title:</h4>
+      <SearchBar searchByName={searchByName}/>
           </div>
             <div>
             <h1>Recipes:</h1>

@@ -9,7 +9,7 @@ import {
 const initialState = {
     diets: [],
     recipes:[],
-	recipeByName:[]
+	recipesByName:[],
     
  };
 
@@ -43,7 +43,7 @@ const initialState = {
 		case GET_RECIPES_BY_NAME:{
 			return {
 				...state,
-				recipeByName: action.payload,
+				recipesByName: action.payload,
 			};
 		}
 

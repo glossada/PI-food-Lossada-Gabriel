@@ -36,7 +36,7 @@ export function getRecipesById(id) {
 
 export function getRecipesByName(name) {
 	return (dispatch) => {
-		axios.get(`/recipes?name=${name}`)
+		axios.get(`${RECIPES}?name=${name}`)
 		.then((response) => {
 			dispatch({ type: GET_RECIPES_BY_NAME, payload: response.data });
 		});
