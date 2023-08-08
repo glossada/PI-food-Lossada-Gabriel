@@ -13,14 +13,16 @@ const Landing = (props) =>{
 
     return (
         <div className={style.container}>
+          <div className={style.text}>
             <div>
-            <h1>Super FOOD APP for dumb people</h1>
+            <h1>Welcome to Food App!</h1>
             </div>
             <div>
             <Link to={HOME}>
-            <h1 >JUMP IN!</h1>
+            <h1 >Jump In!</h1>
             </Link>
             </div>
+          </div>
 
         </div>
       );

@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'BananaYeti';
+    src: url('../../components/fonts/BananaYeti-Extrabold\ Trial.ttf') format('truetype');
+  }
+
+.outside{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.container{
+    background-color: rgba(174, 180, 169, 0.925);
+    border: 2px outset rgba(174, 180, 169, 0.15);
+   box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+   border-radius: 20px;
+   width: 50%;
+}
+
+.idHealthCon{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    margin-top: 20px;
+}
+
+.idHealth{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 70%;
+    height: 35px;
+    gap: 50px;  
+    background-color: rgb(195, 125, 146, 0.438);
+    border-radius: 20px;
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    color: rgb(42, 43, 44);
+    font-weight: bold;
+    margin-top: 10px;
+    text-shadow: -4px 1px 8px rgba(41, 38, 39, 0.425);
+    font-size: larger;
+}
+
+.conText{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    
+}
+
+.tooMuchText{
+    display: table; /* Utiliza una tabla CSS para controlar la altura igual */
+    width: 100%; /* O el ancho deseado */
+    
+}
+
+.summary, .instructions {
+    display: table-cell; /* Cada contenedor es una celda de la tabla */
+    height: 100%; /* Cada contenedor ocupa toda la altura de la tabla */
+    vertical-align: top; /* Alineación vertical superior para el contenido */
+    align-items: center;
+    font-family: sans-serif;
+    color: rgb(42, 43, 44);
+    
+    
+}
+
+.summary{
+    background-color: rgba(195, 125, 146, 0.438);
+    border-radius: 20px;
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    width: 50%;
+    
+}
+
+.instructions{
+    width: 50%;
+    background-color: rgb(195, 125, 146, 0.438);
+    border-radius: 20px;
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    
+}
+
+.text{
+    width: 90%;
+    margin-left: 5%;
+}
+
+.titleCon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100px;
+    margin-top: 15px;
+}
+
+.title{
+    width: 90%;
+    font-size: 50px;
+    font-family: 'BananaYeti';
+    text-decoration:underline;
+    color:rgb(110, 84, 88);
+    text-shadow: -4px 5px 10px rgb(132, 98, 103);
+    
+}
+
+.image{
+    width: 556px;
+    height: 370px;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+}
+
+.dietsContainer{
+    display: grid;
+    grid-template-columns: 100% 1fr; 
+    justify-content: center;
+    align-items: center;
+    
+    
+   
+}
+
+.dieTitle{
+    font-family: 'BananaYeti';
+    text-align: center;
+    font-size: 50px;
+    font-family: 'BananaYeti';
+    text-decoration:underline;
+    color:rgb(110, 84, 88);
+    text-shadow: -4px 5px 10px rgb(132, 98, 103);
+    
+    
+    
+}
+
+.diets{
+    text-align: left;
+    font-family: sans-serif;
+    font-size: larger;
+    color: rgb(42, 43, 44);
+    font-weight: bold;
+    margin-top: 10px;
+    text-shadow: -4px 1px 8px rgba(41, 38, 39, 0.425);
+    display: flex;
+    justify-content: center; /* Ajusta verticalmente en el centro */
+    align-items: center;
+    grid-row: 2;
+    
+}
+
+.diet{
+    background-color: aqua;
+}
+
+.ul{
+    
+}
+

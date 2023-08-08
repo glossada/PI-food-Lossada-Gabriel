@@ -5,6 +5,7 @@ import Card from '../Card/Card'
 import { ITEMS_PER_PAGE } from "../../Utils/URL";
 import {getRecipes,getDiets,getRecipesByName} from '../../redux/actions';
 import SearchBar from "../SearchBar/SearchBar";
+import style from "./Cards.module.css";
 
 const Cards = (props) =>{
 let recipes=useSelector((state)=> state.recipes);
@@ -132,25 +133,31 @@ useEffect(() => {
 
     return (
         <div >
-          <div>
-            <button onClick={sortRecipesByName}>Ordenar {ascendingName ? 'Z-A' : 'A-Z'}</button>
-            <button onClick={sortRecipesByHealthScore}>Ordenar {ascendingHealth ? '0-100' : '100-0'}</button>
-            <label >Seleccionar dieta:</label>
-      <select onChange={filterRecipes}>
-        <option value="TD">Todas las dietas</option>
+        <div className={style.containerSearchbar}>
+          <div className={style.searchbar}>
+            <div className={style.order}>
+            <button className={style.sortButton} onClick={sortRecipesByName}>Sort {ascendingName ? 'Z-A' : 'A-Z'}</button>
+            <button className={style.sortButton} onClick={sortRecipesByHealthScore}>Sort {ascendingHealth ? '0-100' : '100-0'}</button>
+            </div>
+      <div className={style.filter}>
+      <label >Select diet:</label>
+      <select className={style.select} onChange={filterRecipes}>
+        <option value="TD">All diets</option>
         {dietsSel.map((diet) => (
           <option key={diet.id} value={diet.name}>
             {diet.name}
           </option>
         ))}
       </select>
-      <h4>Search by title:</h4>
+      </div>
+      <div className={style.search}>
       <SearchBar searchByName={searchByName}/>
+      </div>
           </div>
+        </div>
             <div>
-            <h1>Recipes:</h1>
             </div>
-            <div>
+            <div className={style.data}>
                 {items.map(recipe => {
                     return <Card key={recipe.id}
                     id={recipe.id}
@@ -161,9 +168,13 @@ useEffect(() => {
                     />
                 })}
             </div>
+            <div className={style.containerFooter}>
+            <div className={style.footer}>
+            <button className={style.sortPage} onClick={prevHandler}>{'<-Prev'}</button>
             <p>Page {currentPage}</p>
-            <button onClick={prevHandler}>Prev</button>
-            <button onClick={nextHandler}>Next</button>
+            <button className={style.sortPage} onClick={nextHandler}>{'Next->'}</button>
+            </div>
+            </div>
         </div>
       );
 }

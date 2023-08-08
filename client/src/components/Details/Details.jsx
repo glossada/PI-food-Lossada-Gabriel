@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { RECIPES} from '../../Utils/URL';
+import style from "./Details.module.css";
 
 export default function SearchBar(props) {
   const { id } = useParams();
@@ -25,12 +26,21 @@ export default function SearchBar(props) {
    
 
    return (
-      <div >
-         <h1>ID: {recipe.id}</h1>
-         <h1>Title: {recipe.title}</h1>
-         <img src={recipe.image} alt="" />
-         <h4>{recipe.healthScore}</h4>
-         <h4>Diets:</h4>
+      <div className={style.outside}>
+        <div className={style.container}>
+          <div className={style.titleCon}>
+         <h1 className={style.title}>{recipe.title}</h1>
+         </div>
+         <img className={style.image} src={recipe.image} alt="" />
+         <div className={style.idHealthCon}>
+         <div className={style.idHealth}>
+         <h4>ID: {recipe.id}</h4>
+         <h4>Health score: {recipe.healthScore}</h4>
+         </div>
+         </div>
+         <div className={style.dietsContainer}>
+        <div className={style.diets}>
+        <h4 className={style.dieTitle}>Diets:</h4>
          {recipe.diets && Array.isArray(recipe.diets) && (
   <ul>
     {recipe.diets.map((diet, index) => (
@@ -38,10 +48,21 @@ export default function SearchBar(props) {
     ))}
   </ul>
 )}
+</div>
+</div>
+        <div className={style.conText}>
+          <div className={style.tooMuchText}>
+            <div className={style.summary}>
         <h4>Summary:</h4>
-        <p dangerouslySetInnerHTML={{ __html: recipe.summary }} />
+        <p className={style.text} dangerouslySetInnerHTML={{ __html: recipe.summary }} />
+            </div>
+            <div className={style.instructions}>
         <h4>Instructions:</h4>
-        <p dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
+        <p className={style.text} dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
+            </div>
+          </div>
+        </div>
+        </div>
       </div>
    );
 }

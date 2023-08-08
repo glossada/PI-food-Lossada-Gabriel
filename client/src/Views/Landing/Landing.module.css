@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'BananaYeti';
+    src: url('../../components/fonts/BananaYeti-Extrabold\ Trial.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Script Bold';
+    src: url('../../components/fonts/Advertising\ Script\ Bold\ Trial.ttf') format('truetype');
+  }
+
+.container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.text{
+    background-color: rgba(132, 98, 103, 0.856);
+    color:rgb(224, 193, 179);
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    width: 700px;
+    height: 300px;
+    font-family: 'BananaYeti';
+    font-size:xx-large;
+    border-radius: 20px;
+    
+}

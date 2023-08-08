@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'BananaYeti';
+    src: url('../../components/fonts/BananaYeti-Extrabold\ Trial.ttf') format('truetype');
+  }
+
+.container{
+   background-color: rgba(174, 180, 169, 0.925);
+   border: 2px outset rgba(174, 180, 169, 0.15);
+   box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+   border-radius: 20px;
+   width: 500px;
+   height: 570px;
+   margin-top: 20px;
+   margin-left: 10%;
+   
+}
+
+.link{
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.titleCon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100px;
+}
+
+.title{
+    width: 90%;
+    font-size: 35px;
+    font-family: 'BananaYeti';
+    text-decoration:underline;
+    color:rgb(110, 84, 88);
+    text-shadow: -4px 5px 10px rgb(132, 98, 103);
+    
+}
+
+.image{
+    border: 2px outset rgba(174, 180, 169, 0.76);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    border-radius: 20px;
+}
+
+.dietsContainer{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.diets{
+    text-align: left;
+    font-family: sans-serif;
+    color: rgb(42, 43, 44);
+    font-weight: bold;
+    margin-top: 10px;
+    text-shadow: -4px 1px 8px rgba(41, 38, 39, 0.425);
+}
+
+.heatlScore{
+  font-family: sans-serif;
+  height: 10px;
+  color: rgb(42, 43, 44);
+  text-shadow: -4px 1px 8px rgba(41, 38, 39, 0.425);
+  font-weight: bolder;
+  font-size: x-large;
+  
+}

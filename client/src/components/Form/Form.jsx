@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch,useSelector } from "react-redux";
 import { validateTitle, validateImage,validateHealthScore,validateInstructions,validateSummary } from './validations'
 import {addRecipe} from '../../redux/actions'
+import style from "./Form.module.css";
 
 const Form = (props) => {
     const diets=useSelector((state)=> state.diets);
@@ -97,26 +98,30 @@ const Form = (props) => {
     };
   
     return (
-        <div>
+        <div className={style.outside}>
+          <div className={style.container}>
         <h1>New Recipe:</h1>
       <form onSubmit={handleSubmit}>
+        <div className={style.shortTextContainer}>
+          <div className={style.shortText}>
         <div>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">Title: </label>
           <input type="text" name='title' value={newRecipe.title} onChange={handleChange} />
           <span>{errors.title}</span>
         </div>
         <div>
-          <label>Image:</label>
-          <input type="text" name="image" value={newRecipe.image} onChange={handleChange} />
+          <label>Image: </label>
+          <input  type="text" name="image" value={newRecipe.image} onChange={handleChange} />
           <span>{errors.image}</span>
         </div>
         <div>
-          <label>Health Score:</label>
+          <label>Health Score: </label>
           <input type="number" name="healthScore" value={newRecipe.healthScore} onChange={handleChange} />
           <span>{errors.healthScore}</span>
         </div>
+        </div>
+        </div>
         <div>
-          <label>Diets:</label>
           <label>Diets:</label>
           {diets.length > 0 &&
 									diets.map((diet) => (
@@ -149,6 +154,7 @@ const Form = (props) => {
         </div>
         <button type="submit">Submit</button>
       </form>
+      </div>
       </div>
     );
   };

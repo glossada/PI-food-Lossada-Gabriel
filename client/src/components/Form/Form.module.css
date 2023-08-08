@@ -1,0 +1,33 @@
+.outside{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.container{
+    background-color: rgba(174, 180, 169, 0.925);
+    border: 2px outset rgba(174, 180, 169, 0.15);
+   box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+   border-radius: 20px;
+   width: 20%;
+}
+
+.shortTextContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shortText{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+    text-align: left;
+    height: 100px;
+    width: 80%;
+    background-color: rgb(195, 125, 146, 0.438);
+    border-radius: 20px;
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+}

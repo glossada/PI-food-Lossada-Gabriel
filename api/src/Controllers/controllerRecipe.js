@@ -3,6 +3,7 @@ const {Recipe, Diet}=require('../db');
 const {FOOD_API, QUERY_KEY}= require('../uttils/urls');
 const {API_KEY} = process.env;
 const {Op} = require('sequelize');
+const {results} = require('../otros/recipes.json')
 
 const pocesarInstrucciones=(receta)=>{
     receta.instructions = receta.instructions.replace(/<\/?p>/g, "");
@@ -97,11 +98,13 @@ const titleFilterRecipe=(recetas,name)=>{
     }
 }
 
+//ACA SE TRAE LO DE LA API!!!!!!
 const getAllRecipesApi= async ()=>{
-   
-        const {data}= await axios.get(`${FOOD_API}/complexSearch${QUERY_KEY}${API_KEY}&addRecipeInformation=true&number=100`);
+        //const {data}= await axios.get(`${FOOD_API}/complexSearch${QUERY_KEY}${API_KEY}&addRecipeInformation=true&number=100`);
+        const data= results;
         if(data){
-        const recipesMod=procesarRecetas(data.results);
+        const recipesMod=procesarRecetas(data);
+        //const recipesMod=procesarRecetas(data.results);
         return recipesMod;
         }else{
             return [];

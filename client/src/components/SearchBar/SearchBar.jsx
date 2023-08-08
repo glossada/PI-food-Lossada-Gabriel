@@ -10,9 +10,10 @@ export default function SearchBar(props) {
    }
 
    return (
-      <div >
-         <input  type='search'  onChange={handleChange} value={name}/>
-         <button  onClick={()=>{props.searchByName(name)}}>Search</button>
+      <div className={style.container}>
+         <h4>Search by title:</h4>
+         <input className={style.searchField} type='search'  onChange={handleChange} value={name}/>
+         <button className={style.searchButton}  onClick={()=>{props.searchByName(name)}}>Search</button>
       </div>
    );
 }

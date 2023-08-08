@@ -1,0 +1,35 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    gap: 5px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+    text-shadow: -4px 1px 10px rgba(41, 38, 39, 0.274);
+}
+
+.searchButton{
+    background-color: rgb(216, 154, 158);
+    font-size: medium;
+    border-radius: 5px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+    text-shadow: -4px 1px 10px rgba(41, 38, 39, 0.274);
+}
+
+.searchField{
+    background-color: rgb(226, 211, 212);
+    font-size: medium;
+    border-radius: 5px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+    text-shadow: -4px 1px 10px rgba(41, 38, 39, 0.274);
+}
