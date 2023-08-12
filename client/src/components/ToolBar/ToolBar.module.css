@@ -1,0 +1,68 @@
+.containerSearchbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.searchbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    background-color: rgb(195, 125, 146);
+    height: 35px;
+    width: 1300px;
+    border-radius: 20px;
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+}
+
+.search{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.order{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
+.sortButton{
+    background-color: rgb(216, 154, 158);
+    font-size: medium;
+    border-radius: 5px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+    text-shadow: -4px 1px 10px rgba(41, 38, 39, 0.274);
+}
+
+.filter{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+    font-family: sans-serif;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+    text-shadow: -4px 1px 10px rgba(41, 38, 39, 0.274);
+    
+}
+
+.select{
+    background-color: rgb(226, 211, 212);
+    font-size: medium;
+    border-radius: 5px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+}

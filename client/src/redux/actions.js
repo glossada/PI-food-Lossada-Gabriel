@@ -39,6 +39,12 @@ export function getRecipesByName(name) {
 		axios.get(`${RECIPES}?name=${name}`)
 		.then((response) => {
 			dispatch({ type: GET_RECIPES_BY_NAME, payload: response.data });
+		}).catch((error) => {
+			if (error.response && error.response.status === 404) {
+				alert('Recipe not found.');
+			} else {
+				console.error('An error occurred:', error.message);
+			}
 		});
 	};
 }

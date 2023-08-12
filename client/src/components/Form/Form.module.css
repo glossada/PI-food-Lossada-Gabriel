@@ -10,24 +10,130 @@
     border: 2px outset rgba(174, 180, 169, 0.15);
    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
    border-radius: 20px;
-   width: 20%;
+   width: 25%;
 }
 
 .shortTextContainer{
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .shortText{
     display: grid;
     align-items: center;
     justify-content: center;
-    background-color: aqua;
     text-align: left;
-    height: 100px;
-    width: 80%;
+    height: 220px;
+    width: 90%;
+    color: rgb(42, 43, 44);
     background-color: rgb(195, 125, 146, 0.438);
     border-radius: 20px;
     border: 4px outset rgba(132, 98, 103, 0.15);
     box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.input{
+    background-color: rgb(226, 211, 212);
+    font-size: medium;
+    border-radius: 5px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+    width: 95%;
+    margin-bottom: 10px;
+}
+
+.error{
+    font-size: small;
+    color: brown;
+    margin-top: -4px;
+}
+
+.title{
+    font-size: 50px;
+    font-family: 'BananaYeti';
+    text-decoration:underline;
+    color:rgb(110, 84, 88);
+    text-shadow: -4px 5px 10px rgb(132, 98, 103);
+}
+
+.dietsCon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    height: 250px;
+}
+
+.diets{
+    display: grid;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.dietsBox{
+    background-color: rgb(195, 125, 146, 0.438);
+    border-radius: 20px;
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    width: 50%;
+    height: 100%;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+}
+
+.longTextCon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.longText{
+    background-color: rgb(195, 125, 146, 0.438);
+    border-radius: 20px;
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    width: 90%;
+    height: 370px;
+}
+
+.textArea{
+    width: 300px;   
+    height: 100px;
+    background-color: rgb(226, 211, 212);
+    font-size: medium;
+    border-radius: 10px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+}
+
+.submitButton{
+    background-color: rgb(216, 154, 158);
+    font-size: medium;
+    border-radius: 5px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
+    text-shadow: -4px 1px 10px rgba(41, 38, 39, 0.274);
+    margin-top: 10px;
+}
+
+.label{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: large;
+    color: rgb(42, 43, 44);
 }

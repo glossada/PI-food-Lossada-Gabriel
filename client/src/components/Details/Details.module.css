@@ -52,15 +52,15 @@
 }
 
 .tooMuchText{
-    display: table; /* Utiliza una tabla CSS para controlar la altura igual */
-    width: 100%; /* O el ancho deseado */
+    display: table; 
+    width: 100%; 
     
 }
 
 .summary, .instructions {
-    display: table-cell; /* Cada contenedor es una celda de la tabla */
-    height: 100%; /* Cada contenedor ocupa toda la altura de la tabla */
-    vertical-align: top; /* Alineación vertical superior para el contenido */
+    display: table-cell; 
+    height: 100%; 
+    vertical-align: top; 
     align-items: center;
     font-family: sans-serif;
     color: rgb(42, 43, 44);
@@ -151,17 +151,11 @@
     margin-top: 10px;
     text-shadow: -4px 1px 8px rgba(41, 38, 39, 0.425);
     display: flex;
-    justify-content: center; /* Ajusta verticalmente en el centro */
+    justify-content: center; 
     align-items: center;
     grid-row: 2;
     
 }
 
-.diet{
-    background-color: aqua;
-}
 
-.ul{
-    
-}
 

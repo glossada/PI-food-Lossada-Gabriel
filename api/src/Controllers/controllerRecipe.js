@@ -191,11 +191,13 @@ const getRecipeByIdBd =  async (id)=>{
 }
 
 const getAllRecipesByName =async (name)=>{  
-    const recipesApi= await getAllRecipesApi(); 
-    const recipeApiFiltered=titleFilterRecipe(recipesApi,name);
-    const recipeBdFiltered=await getAllRecipeBdByName(name);
-    const allRecipes=[...recipeApiFiltered, ...recipeBdFiltered];
-    return allRecipes;
+    
+        const recipesApi= await getAllRecipesApi(); 
+        const recipeApiFiltered=titleFilterRecipe(recipesApi,name);
+        const recipeBdFiltered=await getAllRecipeBdByName(name);
+        const allRecipes=[...recipeApiFiltered, ...recipeBdFiltered];
+        return allRecipes; 
+    
 }
 
 const getAllRecipes= async () =>{

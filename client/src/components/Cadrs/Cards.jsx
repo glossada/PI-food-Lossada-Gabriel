@@ -1,62 +1,61 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
-import Card from '../Card/Card'
+import { useDispatch, useSelector } from "react-redux";
+import Card from "../Card/Card";
 import { ITEMS_PER_PAGE } from "../../Utils/URL";
-import {getRecipes,getDiets,getRecipesByName} from '../../redux/actions';
-import SearchBar from "../SearchBar/SearchBar";
+import { getRecipes, getDiets, getRecipesByName } from "../../redux/actions";
 import style from "./Cards.module.css";
+import ToolBar from "../ToolBar/ToolBar";
 
-const Cards = (props) =>{
-let recipes=useSelector((state)=> state.recipes);
-let diets = useSelector((state)=> state.diets);
-let recipesByName = useSelector((state)=> state.recipesByName);
-const dispatch = useDispatch();
+const Cards = (props) => {
+  let recipes = useSelector((state) => state.recipes);
+  let diets = useSelector((state) => state.diets);
+  let recipesByName = useSelector((state) => state.recipesByName);
+  const dispatch = useDispatch();
 
-const [recipesMod, setRecipesMod]=useState([]);
-const [dietsSel,setDietsSel]=useState([]);
-const [items, setItems] = useState([]);
-const [currentPage, setCurrentPage]=useState(0);
-const [ascendingName, setAscendingName]=useState(true);
-const [ascendingHealth, setAscendingHealth]=useState(true);
+  const [recipesMod, setRecipesMod] = useState([]);
+  const [dietsSel, setDietsSel] = useState([]);
+  const [items, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [ascendingName, setAscendingName] = useState(true);
+  const [ascendingHealth, setAscendingHealth] = useState(true);
 
+  const nextHandler = () => {
+    const totalElements = recipesMod.length;
+    const nextPage = currentPage + 1;
+    const firstIndex = nextPage * ITEMS_PER_PAGE;
 
-const nextHandler=()=>{
-const totalElements= recipesMod.length;
-const nextPage= currentPage +1;
-const firstIndex= nextPage * ITEMS_PER_PAGE;
+    if (firstIndex >= totalElements) return;
 
-if(firstIndex>=totalElements)return;
+    setItems([...recipesMod].splice(firstIndex, ITEMS_PER_PAGE));
+    setCurrentPage(nextPage);
+  };
 
-setItems([...recipesMod].splice(firstIndex,ITEMS_PER_PAGE));
-setCurrentPage(nextPage);
-}
+  const prevHandler = () => {
+    const prevPage = currentPage - 1;
+    if (prevPage < 0) return;
+    const firstIndex = prevPage * ITEMS_PER_PAGE;
 
-const prevHandler=()=>{
-const prevPage = currentPage - 1;
-if(prevPage<0)return
-const firstIndex= prevPage * ITEMS_PER_PAGE;
+    setItems([...recipesMod].splice(firstIndex, ITEMS_PER_PAGE));
+    setCurrentPage(prevPage);
+  };
 
-setItems([...recipesMod].splice(firstIndex,ITEMS_PER_PAGE));
-setCurrentPage(prevPage);
-}
-
-useEffect(()=>{
+  useEffect(() => {
     dispatch(getRecipes());
     dispatch(getDiets());
-},[]);
+  }, []);
 
-useEffect(() => {
-    setRecipesMod(recipes)
+  useEffect(() => {
+    setRecipesMod(recipes);
   }, [recipes]);
 
   useEffect(() => {
-    setDietsSel(diets)
+    setDietsSel(diets);
   }, [diets]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setItems([...recipesMod].splice(0, ITEMS_PER_PAGE));
-  },[recipesMod])
+  }, [recipesMod]);
 
   useEffect(() => {
     if (recipesByName.length > 0) {
@@ -65,28 +64,25 @@ useEffect(() => {
     }
   }, [recipesByName]);
 
-  // Si recipes aún no se ha cargado, puedes mostrar un mensaje de carga
   if (recipes.length === 0) {
     return <div>Loading...</div>;
   }
 
-  
-
-  const sortRecipesByName=()=>{
-   let recipesOrder = [...recipesMod].sort((a, b) => {
-    const nameA = a.title.toLowerCase();
-    const nameB = b.title.toLowerCase();
-    if (ascendingName) {
-      return nameA.localeCompare(nameB);
-    } else {
-      return nameB.localeCompare(nameA);
-    }
-  });
-  setRecipesMod([...recipesOrder])
-  setItems([...recipesMod].splice(0, ITEMS_PER_PAGE));
-  setCurrentPage(0);
-  setAscendingName((prevOrder) => !prevOrder)
-  }
+  const sortRecipesByName = () => {
+    let recipesOrder = [...recipesMod].sort((a, b) => {
+      const nameA = a.title.toLowerCase();
+      const nameB = b.title.toLowerCase();
+      if (ascendingName) {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+    setRecipesMod([...recipesOrder]);
+    setItems([...recipesMod].splice(0, ITEMS_PER_PAGE));
+    setCurrentPage(0);
+    setAscendingName((prevOrder) => !prevOrder);
+  };
 
   const sortRecipesByHealthScore = () => {
     let recipesOrder = [...recipesMod].sort((a, b) => {
@@ -101,82 +97,101 @@ useEffect(() => {
     setAscendingHealth((prevOrder) => !prevOrder);
   };
 
-  const filterRecipes =(e)=>{
-    const diet=e.target.value;
-    let recipeCopy=recipes;
-    if(diet==='TD'){
+  const filterRecipes = (e) => {
+    const diet = e.target.value;
+    let recipeCopy = recipes;
+    if (diet === "TD") {
       setRecipesMod([...recipeCopy]);
-    setCurrentPage(0);
-    }else{
-    let recipesFiltered=[];
-    for (let i = 0; i < recipeCopy.length; i++) {
-      for (let j = 0; j < recipeCopy[i].diets.length; j++) {
-        if(recipeCopy[i].diets[j]===diet){
-          recipesFiltered.push(recipeCopy[i]);
+      setCurrentPage(0);
+    } else {
+      let recipesFiltered = [];
+      for (let i = 0; i < recipeCopy.length; i++) {
+        for (let j = 0; j < recipeCopy[i].diets.length; j++) {
+          if (recipeCopy[i].diets[j] === diet) {
+            recipesFiltered.push(recipeCopy[i]);
+          }
         }
-        
       }
-      
+      setRecipesMod([...recipesFiltered]);
+      setCurrentPage(0);
     }
-    setRecipesMod([...recipesFiltered]);
-    setCurrentPage(0);
-   }
-  }
+  };
 
-  const searchByName = (name)=>{
-    if(name.length===0){
+  const searchByName = (name) => {
+    if (name.length === 0) {
       setRecipesMod([...recipes]);
-    }else{
-    dispatch(getRecipesByName(name));
+    } else {
+      dispatch(getRecipesByName(name));
+    }
+  };
+
+  const filterBySource=(e)=>{
+    const source= e.target.value;
+    let recipesApi=[];
+    let recipesBD=[];
+
+    if(source==='ALL'){
+      setRecipesMod([...recipes]);
+      return
+    }
+
+    for (let i = 0; i < recipes.length; i++) {
+      if(Number.isInteger(recipes[i].id)){
+        recipesApi.push(recipes[i]);
+      }else{
+        recipesBD.push(recipes[i]);
+      }
+    }
+
+    if(source==='BD'){
+      setRecipesMod([...recipesBD]);
+    }
+
+    if(source==='API'){
+      setRecipesMod([...recipesApi]);
     }
   }
 
-    return (
-        <div >
-        <div className={style.containerSearchbar}>
-          <div className={style.searchbar}>
-            <div className={style.order}>
-            <button className={style.sortButton} onClick={sortRecipesByName}>Sort {ascendingName ? 'Z-A' : 'A-Z'}</button>
-            <button className={style.sortButton} onClick={sortRecipesByHealthScore}>Sort {ascendingHealth ? '0-100' : '100-0'}</button>
-            </div>
-      <div className={style.filter}>
-      <label >Select diet:</label>
-      <select className={style.select} onChange={filterRecipes}>
-        <option value="TD">All diets</option>
-        {dietsSel.map((diet) => (
-          <option key={diet.id} value={diet.name}>
-            {diet.name}
-          </option>
-        ))}
-      </select>
+  return (
+    <div>
+      <ToolBar
+        sortRecipesByName={sortRecipesByName}
+        sortRecipesByHealthScore={sortRecipesByHealthScore}
+        filterRecipes={filterRecipes}
+        searchByName={searchByName}
+        filterBySource={filterBySource}
+        ascendingName={ascendingName}
+        ascendingHealth={ascendingHealth}
+        dietsSel={dietsSel}
+      />
+      <div></div>
+      <div className={style.data}>
+        {items.map((recipe) => {
+          return (
+            <Card
+              key={recipe.id}
+              id={recipe.id}
+              title={recipe.title}
+              healthScore={recipe.healthScore}
+              image={recipe.image}
+              diets={recipe.diets}
+            />
+          );
+        })}
       </div>
-      <div className={style.search}>
-      <SearchBar searchByName={searchByName}/>
+      <div className={style.containerFooter}>
+        <div className={style.footer}>
+          <button className={style.sortPage} onClick={prevHandler}>
+            {"<-Prev"}
+          </button>
+          <p>Page {currentPage}</p>
+          <button className={style.sortPage} onClick={nextHandler}>
+            {"Next->"}
+          </button>
+        </div>
       </div>
-          </div>
-        </div>
-            <div>
-            </div>
-            <div className={style.data}>
-                {items.map(recipe => {
-                    return <Card key={recipe.id}
-                    id={recipe.id}
-                    title={recipe.title}
-                    healthScore={recipe.healthScore}
-                    image={recipe.image}
-                    diets={recipe.diets}
-                    />
-                })}
-            </div>
-            <div className={style.containerFooter}>
-            <div className={style.footer}>
-            <button className={style.sortPage} onClick={prevHandler}>{'<-Prev'}</button>
-            <p>Page {currentPage}</p>
-            <button className={style.sortPage} onClick={nextHandler}>{'Next->'}</button>
-            </div>
-            </div>
-        </div>
-      );
-}
+    </div>
+  );
+};
 
 export default Cards;

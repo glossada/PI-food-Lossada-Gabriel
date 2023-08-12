@@ -34,19 +34,20 @@ const getRecipesByName= async (req,res)=>{
         res.status(400).json({error:'no puede ser un numero'})
     }
     try {
-        if(!name){
-            const allRecipes= await getAllRecipes();
+        if (!name) {
+            const allRecipes = await getAllRecipes();
             res.status(200).json(allRecipes);
-            }else{
-            const allRecipesByName= await getAllRecipesByName(name);
-            if(allRecipesByName.length===0){
-                res.status(404).json({error:'no se encontraron coincidencias'})
+        } else {
+            const allRecipesByName = await getAllRecipesByName(name);
+            
+            if (allRecipesByName.length === 0) {
+                res.status(404).json({ message: 'Receta no encontrada' });
+            } else {
+                res.status(200).json(allRecipesByName);
             }
-        
-            res.status(200).json(allRecipesByName);
-            }
+        }
     } catch (error) {
-        res.status(500).json({error:`Se rompio todo: ${error.message}`})
+        res.status(500).json({ error: `Ocurrió un error: ${error.message}` });
     }
     
     

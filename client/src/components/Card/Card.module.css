@@ -42,6 +42,8 @@
     border: 2px outset rgba(174, 180, 169, 0.76);
     box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
     border-radius: 20px;
+    width:312px ;
+    height:231px ;
 }
 
 .dietsContainer{

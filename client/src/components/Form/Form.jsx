@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch,useSelector } from "react-redux";
-import { validateTitle, validateImage,validateHealthScore,validateInstructions,validateSummary } from './validations'
+import { validations,validateAll } from './validations'
 import {addRecipe} from '../../redux/actions'
 import style from "./Form.module.css";
 
 const Form = (props) => {
     const diets=useSelector((state)=> state.diets);
+    const recipes=useSelector((state)=> state.recipes);
     const dispatch = useDispatch();
 
     const [newRecipe,setNewRecipe]=useState({
@@ -40,41 +41,32 @@ const Form = (props) => {
     const value = event.target.value;
     
      setNewRecipe({ ...newRecipe, [property]: value });
-
-     if (property === "title") {
-      const error= validateTitle({ ...newRecipe, [property]: value });
-      setErrors({...errors, title:error.title});
-     }
-
-     if (property === "image") {
-       const error= validateImage({ ...newRecipe, [property]: value });
-       setErrors({...errors, image:error.image});
-     }
-
-      if (property === "healthScore") {
-       const error= validateHealthScore({ ...newRecipe, [property]: value });
-       setErrors({...errors, healthScore:error.healthScore});
-      }
-
-      if (property === "summary") {
-       const error= validateSummary({ ...newRecipe, [property]: value });
-       setErrors({...errors, summary:error.summary});
-      }
-
-      if (property === "instructions") {
-       const error= validateInstructions({ ...newRecipe, [property]: value });
-      setErrors({...errors, instructions:error.instructions});
-      }
+     setErrors(validations({ ...newRecipe, [property]: value }));
+     
+    
 
     }
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Aquí puedes hacer lo que necesites con los datos del formulario,
-      // como enviarlos a un servidor o realizar alguna acción con ellos.
+
+    const emptyErrors=validateAll(newRecipe);
+  
       if (Object.keys(errors).length > 0) {
         const errorMessages = Object.values(errors).join('\n');
-        alert('Se encontraron los siguientes errores:\n' + errorMessages);
+        alert('The following errors were found:\n' + errorMessages);
+        return;
+      }
+
+      if(emptyErrors.exist===true){
+        const errorMessages = Object.values(emptyErrors).join('\n');
+          alert('The following errors were found:\n' + errorMessages);
+          return;
+      }
+
+      const existingRecipe=recipes.find((reci) => newRecipe.title===reci.title);
+      if(existingRecipe){
+        alert('This Recipe Alredy Exist');
         return;
       }
       
@@ -82,17 +74,16 @@ const Form = (props) => {
       
       dispatch(addRecipe(recipe));
       alert('la receta se agrego correctamente');
-      setNewRecipe(...newRecipe,{
-        title:'',
-        image:'',
-        healthScore:0,
-        summary:'',
-        instructions:'',
-        diets:[],
-
-    });
+      setNewRecipe({
+        title: '',
+        image: '',
+        healthScore: 0,
+        summary: '',
+        instructions: '',
+        diets: [],
+      });
     
-      // Luego, puedes reiniciar el estado para limpiar el formulario si lo deseas.
+      
       
       
     };
@@ -100,29 +91,31 @@ const Form = (props) => {
     return (
         <div className={style.outside}>
           <div className={style.container}>
-        <h1>New Recipe:</h1>
+        <h1 className={style.title}>New Recipe:</h1>
       <form onSubmit={handleSubmit}>
         <div className={style.shortTextContainer}>
           <div className={style.shortText}>
         <div>
-          <label htmlFor="title">Title: </label>
-          <input type="text" name='title' value={newRecipe.title} onChange={handleChange} />
-          <span>{errors.title}</span>
+          <label className={style.label} htmlFor="title">Title: </label>
+          <input className={style.input} type="text" name='title' value={newRecipe.title} onChange={handleChange} />
+          <span className={style.error}>{errors.title}</span>
         </div>
         <div>
-          <label>Image: </label>
-          <input  type="text" name="image" value={newRecipe.image} onChange={handleChange} />
-          <span>{errors.image}</span>
+          <label className={style.label}>Image URL: </label>
+          <input className={style.input} type="text" name="image" value={newRecipe.image} onChange={handleChange} />
+          <span className={style.error}>{errors.image}</span>
         </div>
         <div>
-          <label>Health Score: </label>
-          <input type="number" name="healthScore" value={newRecipe.healthScore} onChange={handleChange} />
-          <span>{errors.healthScore}</span>
+          <label className={style.label}>Health Score: </label>
+          <input className={style.input} type="number" name="healthScore" value={newRecipe.healthScore} onChange={handleChange} />
+          <span className={style.error}>{errors.healthScore}</span>
         </div>
         </div>
         </div>
-        <div>
-          <label>Diets:</label>
+        <div className={style.dietsCon}>
+          <div className={style.dietsBox}>
+          <label className={style.label}>Diets:</label>
+          <div className={style.diets}>
           {diets.length > 0 &&
 									diets.map((diet) => (
 										<label
@@ -141,18 +134,28 @@ const Form = (props) => {
 											{diet.name}
 										</label>
 									))}
+            </div>
+            </div>
+        </div>
+        <div className={style.longTextCon}>
+          <div className={style.longText}>
+        <div>
+          <div>
+          <label className={style.label}>Summary:</label>
+          </div>
+          <textarea className={style.textArea} value={newRecipe.summary} name="summary" onChange={handleChange} />
+          <h4 className={style.error}>{errors.summary}</h4>
         </div>
         <div>
-          <label>Summary:</label>
-          <textarea value={newRecipe.summary} name="summary" onChange={handleChange} />
-          <span>{errors.summary}</span>
+          <div>
+          <label className={style.label}>Instructions:</label>
+          </div>
+          <textarea className={style.textArea} value={newRecipe.instructions} name="instructions" onChange={handleChange} />
+          <h4 className={style.error}>{errors.instructions}</h4>
         </div>
-        <div>
-          <label>Instructions:</label>
-          <textarea value={newRecipe.instructions} name="instructions" onChange={handleChange} />
-          <span>{errors.instructions}</span>
+        <button className={style.submitButton} type="submit">Submit</button>
         </div>
-        <button type="submit">Submit</button>
+        </div>
       </form>
       </div>
       </div>
