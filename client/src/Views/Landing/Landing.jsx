@@ -15,7 +15,7 @@ const Landing = (props) =>{
         <div className={style.container}>
           <div className={style.text}>
             <div>
-            <h1>Welcome to Food App!</h1>
+            <h1>Welcome to FoodieFaves!</h1>
             </div>
             <div>
             <Link to={HOME}>

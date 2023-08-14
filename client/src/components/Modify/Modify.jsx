@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useDispatch,useSelector } from "react-redux";
-import { validations,validateAll } from './validations'
-import {addRecipe} from '../../redux/actions'
-import style from "./Form.module.css";
+import { validations,validateAll } from '../Form/validations'
+import {modRecipe} from '../../redux/actions'
+import style from "./Modify.module.css";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { RECIPES} from '../../Utils/URL';
 
-const Form = (props) => {
+const Modify = (props) => {
+    const { id } = useParams();
     const diets=useSelector((state)=> state.diets);
     const recipes=useSelector((state)=> state.recipes);
     const dispatch = useDispatch();
-
-    const [newRecipe,setNewRecipe]=useState({
-        title:'',
-        image:'',
-        healthScore:0,
-        summary:'',
-        instructions:'',
-        diets:[],
-
-    })
+    const [newRecipe,setNewRecipe]=useState({})
     const [errors, setErrors] = useState({});
 
+
+    useEffect(() => {
+        axios(`${RECIPES}${id}`).then(
+          ({ data }) => {
+            if (data.title) {
+                let recipe = data;
+                recipe.diets=[]
+                setNewRecipe(data);
+            } else {
+              window.alert("No recipes found");
+            }
+          }
+        );
+        return setNewRecipe({});
+      }, [id]);
 
   
     const handleChecked = function (e) {
@@ -64,15 +74,11 @@ const Form = (props) => {
           return;
       }
 
-      const existingRecipe=recipes.find((reci) => newRecipe.title===reci.title);
-      if(existingRecipe){
-        alert('This Recipe Alredy Exist');
-        return;
-      }
+      
       
       const recipe=newRecipe;
       
-      dispatch(addRecipe(recipe));
+      dispatch(modRecipe(recipe));
       alert('la receta se agrego correctamente');
       setNewRecipe({
         title: '',
@@ -91,7 +97,7 @@ const Form = (props) => {
     return (
         <div className={style.outside}>
           <div className={style.container}>
-        <h1 className={style.title}>New Recipe:</h1>
+        <h1 className={style.title}>Modify Recipe:</h1>
       <form onSubmit={handleSubmit}>
         <div className={style.shortTextContainer}>
           <div className={style.shortText}>
@@ -114,7 +120,7 @@ const Form = (props) => {
         </div>
         <div>
           <h4 className={style.label}>Image Preview</h4>
-            {newRecipe.image.length > 0 ? (
+            {newRecipe.image && newRecipe.image.length > 0 ? (
                 <img className={style.image} src={newRecipe.image} alt="Imagen" />
             ) : (
                 <p>---</p>
@@ -170,4 +176,4 @@ const Form = (props) => {
     );
   };
   
-  export default Form;
+  export default Modify;

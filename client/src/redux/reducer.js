@@ -3,7 +3,9 @@ import {
 	GET_DIETS,
     GET_RECIPE_BY_ID,
 	ADD_RECIPES,
-	GET_RECIPES_BY_NAME
+	GET_RECIPES_BY_NAME,
+	MOD_RECIPES,
+	DEL_RECIPES
 } from './actions.js';
 
 const initialState = {
@@ -46,6 +48,31 @@ const initialState = {
 				recipesByName: action.payload,
 			};
 		}
+
+		case MOD_RECIPES:
+            const { id } = action.payload;
+            const updatedRecipes = state.recipes.map(recipe => {
+                if (recipe.id === id) {
+                    return {
+                        ...recipe,
+                        ...action.payload,
+                    };
+                }
+                return recipe;
+            });
+            return {
+                ...state,
+                recipes: updatedRecipes,
+            };
+			case  DEL_RECIPES:{
+				const deletedRecipeId = action.payload;
+            const updatedRecipes = state.recipes.filter(recipe => recipe.id !== deletedRecipeId);
+            return {
+                ...state,
+                recipes: updatedRecipes,
+            };
+			}
+		
 
        default:
           return {...state};

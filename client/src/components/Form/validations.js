@@ -24,14 +24,14 @@ const validations = (data) => {
 
   if (!data.instructions) {
     errors.instructions = 'Instructions are required.';
-  } else if (data.instructions.length > 1000) {
-    errors.instructions = 'Instructions must be less than 1000 characters.';
+  } else if (data.instructions.length > 3000) {
+    errors.instructions = 'Instructions must be less than 3000 characters.';
   }
 
   if (!data.summary) {
     errors.summary = 'Summary is required.';
-  } else if (data.summary.length > 200) {
-    errors.summary = 'Summary must be less than 200 characters.';
+  } else if (data.summary.length > 3000) {
+    errors.summary = 'Summary must be less than 3000 characters.';
   }
 
   return errors;

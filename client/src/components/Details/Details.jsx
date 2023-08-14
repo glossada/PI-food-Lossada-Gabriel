@@ -5,11 +5,15 @@ import { useEffect } from "react";
 import axios from "axios";
 import { RECIPES} from '../../Utils/URL';
 import style from "./Details.module.css";
+import { Link } from "react-router-dom";
+import { MODIFY } from "../../Utils/ROUTES"; 
 
 export default function SearchBar(props) {
   const { id } = useParams();
   const [recipe, setRecipe] = useState({});
+  const [isFromBd ,setIsFromBd]=useState(true);
 
+  
   useEffect(() => {
     axios(`${RECIPES}${id}`).then(
       ({ data }) => {
@@ -24,6 +28,12 @@ export default function SearchBar(props) {
     return setRecipe({});
   }, [id]);
    
+  useEffect(()=>{
+    if(Number.isInteger(Number(id))){
+      setIsFromBd(false)
+    }
+  },[id])
+
 
    return (
       <div className={style.outside}>
@@ -61,6 +71,15 @@ export default function SearchBar(props) {
         <p className={style.text} dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
             </div>
           </div>
+        </div>
+        <div className={style.modify}>
+        {isFromBd ? (
+                <Link className={style.link} to={`${MODIFY}/${id}`}>
+                    <h1 className={style.title}>Modify Recipe</h1>
+                </Link>
+            ) : (
+                <p></p>
+            )}
         </div>
         </div>
       </div>

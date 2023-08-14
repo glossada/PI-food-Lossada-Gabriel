@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {getRecipeByIdApi,getRecipeByIdBd,getAllRecipesByName,getAllRecipes,createRecipe}=require('../Controllers/controllerRecipe')
+const {getRecipeByIdApi,getRecipeByIdBd,getAllRecipesByName,getAllRecipes,createRecipe,updateRecipe,deleteRecipe}=require('../Controllers/controllerRecipe')
 
 ///
 const getRecipeById= async(req,res)=>{
@@ -59,16 +59,42 @@ const postRecipe = async (req,res)=>{
     const {title,image,summary,healthScore,instructions,diets} = req.body;
 
     if(!title||!image||!summary||!healthScore||!instructions || diets.length===0){
-        res.status(401).json({error:'Faltan Datos!'});
+        res.status(401).json({error:'Missing data!'});
     }
     
     try {
         const newRecipe= await createRecipe({title,image,summary,healthScore,instructions,diets});
         res.status(200).json(newRecipe);
     } catch (error) {
-        res.status(500).json({error:'no se cargo un sorete'});
+        res.status(500).json({error:'Recipe not created'});
     }
 
+}
+
+const putRecipe = async (req,res)=>{
+    const {id,title,image,summary,healthScore,instructions,diets} = req.body;
+
+    if(!id||!title||!image||!summary||!healthScore||!instructions || diets.length===0){
+        res.status(401).json({error:'Missing data!'});
+    }
+    
+    try {
+        const modRecipe= await updateRecipe(id,{title,image,summary,healthScore,instructions,diets});
+        res.status(200).json(modRecipe);
+    } catch (error) {
+        res.status(500).json({error:'Recipe not modified'});
+    }
+
+}
+
+const delRecipe = async (req,res)=>{
+    const {id}=req.params;
+    try {
+        const recipeId= await deleteRecipe(id);
+        res.status(200).json(recipeId);
+    } catch (error) {
+        res.status(500).json({error:error.message})
+    }
 }
 
 
@@ -76,4 +102,6 @@ module.exports={
     postRecipe,
     getRecipeById,
     getRecipesByName,
+    putRecipe,
+    delRecipe
 }

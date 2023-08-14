@@ -219,10 +219,46 @@ const createRecipe= async ({title,image,summary,healthScore,instructions,diets})
     newRecipe.addDiets(diets);
     return newRecipe;
 }
+
+const updateRecipe= async (recipeId,{title,image,summary,healthScore,instructions,diets})=>{
+    
+    const recipe = await Recipe.findByPk(recipeId);
+    if (!recipe) {
+        throw new Error('Recipe not found');
+    }
+
+    recipe.title = title;
+        recipe.image = image;
+        recipe.summary = summary;
+        recipe.healthScore = healthScore;
+        recipe.instructions = instructions;
+        await recipe.save();
+
+        await recipe.setDiets(diets);
+
+        return recipe;
+}
+
+const deleteRecipe= async(id)=>{
+    const recipe = await Recipe.findByPk(id);
+
+    if (!recipe) {
+        throw new Error('Recipe not found');
+    }
+
+    await recipe.destroy();
+    return id
+
+
+}
+
+
 module.exports={
     getRecipeByIdApi,
     getRecipeByIdBd,
     getAllRecipesByName,
     getAllRecipes,
-    createRecipe
+    createRecipe,
+    updateRecipe,
+    deleteRecipe
 }
