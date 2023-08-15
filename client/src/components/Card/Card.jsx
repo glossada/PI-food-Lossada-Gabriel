@@ -7,6 +7,7 @@ import { deleteRecipe } from "../../redux/actions";
 
 const Card = (props) =>{
     const [isFromBd ,setIsFromBd]=useState(true);
+    const [confirmDel,setConfirmDel]=useState(false)
     const dispatch=useDispatch();
 
     useEffect(()=>{
@@ -15,15 +16,33 @@ const Card = (props) =>{
         }
       },[props.id])
 
-    const onClose=(id)=>{
-        dispatch(deleteRecipe(id))
+    const onX=()=>{
+        setConfirmDel(true)
     }
+
+    const onNo=()=>{
+      setConfirmDel(false)
+    }
+
+    const onYes=(id)=>{
+      dispatch(deleteRecipe(id))
+      setConfirmDel(false)
+    }
+
+
 
     return (
         <div className={style.container}>
-            {isFromBd ? (<button className={style.button} onClick={() => onClose(props.id)}>
+            {isFromBd ? (<button className={style.button} onClick={() => onX()}>
                  X 
             </button>):(<p></p>)}
+            {confirmDel ? (
+    <div>
+        <p className={style.message}>Do you want to delete this recipe?</p>
+        <button className={style.button} onClick={() => onNo()}>No</button>
+        <button className={style.button} onClick={() => onYes(props.id)}>Yes</button>
+    </div>
+) : (<p></p>)}
             <Link className={style.link} to={`/detail/${props.id}`}>
             <div className={style.titleCon}>
             <h2 className={style.title}>{props.title}</h2>
@@ -33,8 +52,8 @@ const Card = (props) =>{
             <img className={style.image}  src={props.image} alt="" />
             <div className={style.dietsContainer}>
             <div className={style.diets}>
-            {props.diets.map(diet =>{
-                return <li key={diet.id}>{diet}</li>
+            {props.diets.map((diet,index) =>{
+                return <li key={index}>{diet}</li>
             })}
             </div>
             </div>

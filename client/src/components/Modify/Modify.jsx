@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import { useDispatch,useSelector } from "react-redux";
 import { validations,validateAll } from '../Form/validations'
 import {modRecipe} from '../../redux/actions'
@@ -14,7 +14,26 @@ const Modify = (props) => {
     const dispatch = useDispatch();
     const [newRecipe,setNewRecipe]=useState({})
     const [errors, setErrors] = useState({});
+    const [selectedDiets, setSelectedDiets]=useState([])
+    const inputRefs = useRef([]);
 
+   /* const loadCheckBox = () => {
+      for (let i = 0; i < inputRefs.current.length; i++) {
+        for (let j = 0; j < newRecipe.diets.length; j++) {
+          if(inputRefs.current[i].name===newRecipe.diets[j].replace(' ', '')
+          .replace('-', '')){
+            inputRefs.current[i].checked = true;
+            setNewRecipe((prevRecipe) => ({
+              ...prevRecipe,
+              diets: [...prevRecipe.diets, selectedDiets[j]],
+            }));
+          }
+          
+        }
+        
+      }
+  
+  }*/
 
     useEffect(() => {
         axios(`${RECIPES}${id}`).then(
@@ -31,20 +50,39 @@ const Modify = (props) => {
         return setNewRecipe({});
       }, [id]);
 
-  
-    const handleChecked = function (e) {
-      if (e.target.checked) {
-        setNewRecipe({
-          ...newRecipe,
-          diets: [...newRecipe.diets, e.target.id],
-        });
+     /* useEffect(()=>{
+        if(selectedDiets.length>0 && inputRefs.current.length>0 && newRecipe){
+          loadCheckBox()
+        }
+      },[selectedDiets])*/
+
+
+    const handleChecked = function (ref) {
+      if (ref.checked) {
+        setNewRecipe((prevRecipe) => ({
+          ...prevRecipe,
+          diets: [...prevRecipe.diets, ref.id],
+        }));
       } else {
-        setNewRecipe({
-          ...newRecipe,
-          diets: [...newRecipe.diets].filter((diet) => e.target.id !== diet),
-        });
+        setNewRecipe((prevRecipe) => ({
+          ...prevRecipe,
+          diets: prevRecipe.diets.filter((diet) => ref.id !== diet),
+        }));
       }
     };
+
+    const handleRef = (ref, index) => {
+      inputRefs.current[index] = ref;
+    };
+    
+    const Unchecked = () => {
+      for (let i = 0; i < inputRefs.current.length; i++) {
+        inputRefs.current[i].checked = false;
+      }
+
+  }
+
+
 
     const handleChange = (event) =>{
     const property = event.target.name;
@@ -80,6 +118,7 @@ const Modify = (props) => {
       
       dispatch(modRecipe(recipe));
       alert('la receta se agrego correctamente');
+      Unchecked()
       setNewRecipe({
         title: '',
         image: '',
@@ -131,19 +170,21 @@ const Modify = (props) => {
           <label className={style.label}>Diets:</label>
           <div className={style.diets}>
           {diets.length > 0 &&
-									diets.map((diet) => (
+									diets.map((diet,index) => (
 										<label
+                      key={index}
 											htmlFor={diet.id}
 										>
 											<input
-												key={diet.id}
+												key={index}
 												id={diet.id}
 												type='checkbox'
+                        ref={(ref) => handleRef(ref, index)}
 												name={diet.name
 													.toLowerCase()
 													.replace(' ', '')
 													.replace('-', '')}
-												onChange={handleChecked}
+                          onChange={() => handleChecked(inputRefs.current[index])}
 											/>
 											{diet.name}
 										</label>

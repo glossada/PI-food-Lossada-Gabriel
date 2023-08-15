@@ -9,7 +9,7 @@
    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
    border-radius: 20px;
    width: 500px;
-   height: 570px;
+   height: 700px;
    margin-top: 20px;
    margin-left: 10%;
    
@@ -69,4 +69,24 @@
   font-weight: bolder;
   font-size: x-large;
   
+}
+
+.button{
+    background-color: transparent;
+    border-width: 1px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: larger;
+    color: rgb(42, 43, 44);
+    text-shadow: -4px 1px 5px rgba(41, 38, 39, 0.178);
+    border-radius: 5px;
+    width: 60px;
+    background-color: rgb(195, 125, 146, 0.438);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.103);
+}
+
+.message{
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(42, 43, 44);
 }

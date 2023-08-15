@@ -6,6 +6,7 @@ import { ITEMS_PER_PAGE } from "../../Utils/URL";
 import { getRecipes, getDiets, getRecipesByName } from "../../redux/actions";
 import style from "./Cards.module.css";
 import ToolBar from "../ToolBar/ToolBar";
+import loadingGif from '../img/ee1d081c5bdf966b058c1a6588e73e8a.gif'
 
 const Cards = (props) => {
   let recipes = useSelector((state) => state.recipes);
@@ -65,7 +66,10 @@ const Cards = (props) => {
   }, [recipesByName]);
 
   if (recipes.length === 0) {
-    return <div>Loading...</div>;
+    return <div>
+       <img className={style.loadinGif} src={loadingGif} alt="Cargando..." />
+       <h2>Cargando...</h2>
+    </div>;
   }
 
   const sortRecipesByName = () => {
@@ -145,10 +149,12 @@ const Cards = (props) => {
 
     if(source==='BD'){
       setRecipesMod([...recipesBD]);
+      setCurrentPage(0);
     }
 
     if(source==='API'){
       setRecipesMod([...recipesApi]);
+      setCurrentPage(0);
     }
   }
 
@@ -163,6 +169,9 @@ const Cards = (props) => {
         ascendingName={ascendingName}
         ascendingHealth={ascendingHealth}
         dietsSel={dietsSel}
+        prevHandler={prevHandler}
+        nextHandler={nextHandler}
+        currentPage={currentPage}
       />
       <div></div>
       <div className={style.data}>

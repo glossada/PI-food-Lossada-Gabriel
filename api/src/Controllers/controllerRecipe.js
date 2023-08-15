@@ -98,7 +98,7 @@ const titleFilterRecipe=(recetas,name)=>{
     }
 }
 
-//ACA SE TRAE LO DE LA API!!!!!!
+//RECORDAR PONER LA API!!!!!!
 const getAllRecipesApi= async ()=>{
         //const {data}= await axios.get(`${FOOD_API}/complexSearch${QUERY_KEY}${API_KEY}&addRecipeInformation=true&number=100`);
         const data= results;

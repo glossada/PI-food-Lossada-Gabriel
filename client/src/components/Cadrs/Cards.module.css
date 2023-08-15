@@ -112,3 +112,7 @@
     color: rgb(42, 43, 44);
     text-shadow: -4px 1px 10px rgba(41, 38, 39, 0.274);
 }
+
+.loadinGif{
+    border-radius: 200px; 
+}

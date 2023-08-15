@@ -10,9 +10,9 @@
     justify-content: center;
     align-items: center;
     gap: 25px;
-    background-color: rgb(195, 125, 146);
+    background-color: rgba(195, 125, 146, 0.863);
     height: 35px;
-    width: 1300px;
+    width: 1500px;
     border-radius: 20px;
     border: 4px outset rgba(132, 98, 103, 0.15);
     box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);

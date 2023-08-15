@@ -37,6 +37,13 @@ export default function ToolBar(props) {
       <div className={style.search}>
       <SearchBar searchByName={props.searchByName}/>
       </div>
+      <button className={style.sortButton} onClick={props.prevHandler}>
+            {"<-Prev"}
+          </button>
+          <p>Page {props.currentPage}</p>
+          <button className={style.sortButton} onClick={props.nextHandler}>
+            {"Next->"}
+          </button>
           </div>
         </div>
       </div>
