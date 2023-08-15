@@ -1,7 +1,7 @@
 const FOOD_API='https://api.spoonacular.com/recipes/';
 const QUERY_KEY='?apiKey=';
 const PORT=3000;
-const host='food-back-ewuh.onrender.com';
+const host='foodiefavs.vercel.app';
 
 module.exports={
     FOOD_API,
