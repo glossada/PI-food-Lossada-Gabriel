@@ -26,9 +26,23 @@
     border: 4px outset rgba(132, 98, 103, 0.15);
     box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
     width: 700px;
-    height: 300px;
+    height: 500px;
     font-family: 'BananaYeti';
     font-size:xx-large;
     border-radius: 20px;
+    text-shadow: 5px 5px 10px #524D4D;
     
+}
+
+.link{
+  
+  color: inherit;
+}
+
+.logo{
+  margin-top: 20px;
+  border-radius: 360px;
+  height: 150px;
+  box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+  border: 1px outset rgba(102, 100, 101, 0.616);
 }

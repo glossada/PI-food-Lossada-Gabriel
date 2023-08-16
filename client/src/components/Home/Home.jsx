@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card/Card";
 import { ITEMS_PER_PAGE } from "../../Utils/URL";
 import { getRecipes, getDiets, getRecipesByName } from "../../redux/actions";
-import style from "./Cards.module.css";
+import style from "./Home.module.css";
 import ToolBar from "../ToolBar/ToolBar";
 import loadingGif from '../img/ee1d081c5bdf966b058c1a6588e73e8a.gif'
 

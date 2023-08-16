@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'BananaYeti';
+    src: url('../../components/fonts/BananaYeti-Extrabold\ Trial.ttf') format('truetype');
+  }
+
+.container{
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerCon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box{
+    background-color: rgba(132, 98, 103, 0.856);
+    color:rgb(224, 193, 179);
+    border: 4px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    width: 60%;
+    border-radius: 20px;
+}
+
+.logo{
+    margin-top: 20px;
+    border-radius: 360px;
+    height: 200px;
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    border: 1px outset rgba(102, 100, 101, 0.616);
+  }
+
+  .title{
+    font-family: 'BananaYeti';
+    font-size:60px;
+    text-shadow: 5px 5px 10px #524D4D;
+  }
+  .summary{
+    width: 800px;
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+
+  .summaryCon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }

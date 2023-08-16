@@ -18,7 +18,7 @@ server.use(cookieParser());
 server.use(morgan('dev'));
 server.use(
   cors({
-    origin: 'https://foodiefavs.vercel.app', // Cambiar al dominio correcto
+    origin: host, // Cambiar al dominio correcto
     credentials: true,
     methods: 'GET, POST, OPTIONS, PUT, DELETE',
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
