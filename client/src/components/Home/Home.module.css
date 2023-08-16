@@ -114,5 +114,10 @@
 }
 
 .loadinGif{
-    border-radius: 200px; 
+    border-radius: 400px;
+    border: 2px outset rgba(132, 98, 103, 0.15);
+    box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.31);
+    width: 500px;
+    margin-top: 20px;
+    background-color: rgb(216, 154, 158)
 }

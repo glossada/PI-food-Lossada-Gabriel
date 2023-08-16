@@ -22,7 +22,7 @@ const getRecipeById= async(req,res)=>{
         }
         
     } catch (error) {
-        res.status(500).json({error:`Se rompio todo: ${error.message}`});
+        res.status(500).json({error:`Here, have a nice error only for you <3: ${error.message}`});
     }
 
 }
@@ -47,7 +47,7 @@ const getRecipesByName= async (req,res)=>{
             }
         }
     } catch (error) {
-        res.status(500).json({ error: `Ocurrió un error: ${error.message}` });
+        res.status(500).json({ error: `Here, have a nice error only for you <3: ${error.message}` });
     }
     
     
