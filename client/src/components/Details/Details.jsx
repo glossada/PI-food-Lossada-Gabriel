@@ -13,7 +13,8 @@ import loadingGif from '../img/ee1d081c5bdf966b058c1a6588e73e8a.gif';
 
 export default function SearchBar(props) {
   const { id } = useParams();
-  const recipe= useSelector((state) => state.recipeById);
+  const recipeById= useSelector((state) => state.recipeById);
+  const[recipe,setRecipe]=useState({})
   const [isFromBd ,setIsFromBd]=useState(true);
   const dispatch = useDispatch();
 
@@ -22,6 +23,10 @@ export default function SearchBar(props) {
   useEffect(() => {
     dispatch(getRecipesById(id));
   }, [id]);
+
+  useEffect(() => {
+    setRecipe(recipeById)
+  }, [recipeById]);
    
   useEffect(()=>{
     if(Number.isInteger(Number(id))){
@@ -29,12 +34,12 @@ export default function SearchBar(props) {
     }
   },[id])
 
-  if (recipe) {
+  /*if (recipe) {
     return <div>
        <img className={style.loadinGif} src={loadingGif} alt="Cargando..." />
        <h2>Cargando...</h2>
     </div>;
-  }
+  }*/
 
 
    return (
