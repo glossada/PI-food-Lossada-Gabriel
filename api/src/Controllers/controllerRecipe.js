@@ -100,11 +100,11 @@ const titleFilterRecipe=(recetas,name)=>{
 
 //RECORDAR PONER LA API!!!!!!
 const getAllRecipesApi= async ()=>{
-        //const {data}= await axios.get(`${FOOD_API}/complexSearch${QUERY_KEY}${API_KEY}&addRecipeInformation=true&number=100`);
-        const data= results;
+        const {data}= await axios.get(`${FOOD_API}/complexSearch${QUERY_KEY}${API_KEY}&addRecipeInformation=true&number=100`);
+        //const data= results;
         if(data){
-        const recipesMod=procesarRecetas(data);
-        //const recipesMod=procesarRecetas(data.results);
+        //const recipesMod=procesarRecetas(data);
+        const recipesMod=procesarRecetas(data.results);
         return recipesMod;
         }else{
             return [];
