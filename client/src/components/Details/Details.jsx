@@ -2,30 +2,25 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { RECIPES} from '../../Utils/URL';
 import style from "./Details.module.css";
 import { Link } from "react-router-dom";
 import { MODIFY } from "../../Utils/ROUTES"; 
+import { getRecipesById } from "../../redux/actions";
+import loadingGif from '../img/ee1d081c5bdf966b058c1a6588e73e8a.gif';
 
 export default function SearchBar(props) {
   const { id } = useParams();
-  const [recipe, setRecipe] = useState({});
+  const recipe= useSelector((state) => state.recipeById);
   const [isFromBd ,setIsFromBd]=useState(true);
+  const dispatch = useDispatch();
+
 
   
   useEffect(() => {
-    axios(`${RECIPES}${id}`).then(
-      ({ data }) => {
-        if (data.title) {
-          
-            setRecipe(data);
-        } else {
-          window.alert("No recipes found");
-        }
-      }
-    );
-    return setRecipe({});
+    dispatch(getRecipesById(id));
   }, [id]);
    
   useEffect(()=>{
@@ -33,6 +28,13 @@ export default function SearchBar(props) {
       setIsFromBd(false)
     }
   },[id])
+
+  if (recipe) {
+    return <div>
+       <img className={style.loadinGif} src={loadingGif} alt="Cargando..." />
+       <h2>Cargando...</h2>
+    </div>;
+  }
 
 
    return (

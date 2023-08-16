@@ -6,6 +6,7 @@ export const ADD_RECIPES='ADD_RECIPES';
 export const MOD_RECIPES='MOD_RECIPES';
 export const DEL_RECIPES='DEL_RECIPES';
 export const GET_RECIPES = 'GET_RECIPES';
+export const GET_RECIPEDETAIL = 'GET_RECIPESDETAIL';
 export const GET_RECIPE_BY_ID = 'GET_RECIPE_BY_ID';
 export const GET_RECIPES_BY_NAME = 'GET_RECIPES_BY_NAME';
 
