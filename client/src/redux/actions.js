@@ -33,6 +33,9 @@ export function getRecipesById(id) {
 		axios.get(`${RECIPES}${id}`)
 		.then((response) => {
 			dispatch({ type: GET_RECIPE_BY_ID, payload: response.data });
+		}).catch((error) => {
+			console.error('An error occurred:', error.message);
+			
 		});
 	};
 }
