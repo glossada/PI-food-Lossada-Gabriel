@@ -82,7 +82,7 @@ export default function SearchBar(props) {
         <div className={style.modify}>
         {isFromBd ? (
                 <Link className={style.link} to={`${MODIFY}/${id}`}>
-                    <h1 className={style.title}>Modify Recipe</h1>
+                    <h1 className={style.title}>Modify!</h1>
                 </Link>
             ) : (
                 <p></p>
