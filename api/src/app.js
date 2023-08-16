@@ -3,7 +3,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
-const{PORT,host} = require('./uttils/urls.js')
+const{PORT,host} = require('./uttils/urls.js');
+const cors = require('cors');
 
 require('./db.js');
 
@@ -15,14 +16,20 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
-server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', `http://${host}`); // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
-});
+server.use(
+  cors({
+    origin: 'https://foodiefavs.vercel.app', // Cambiar al dominio correcto
+    credentials: true,
+    methods: 'GET, POST, OPTIONS, PUT, DELETE',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+  })
+);
 server.use(express.json());
+/*server.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.sendStatus(200);
+});*/
+
 server.use('/', routes);
 
 // Error catching endware.
