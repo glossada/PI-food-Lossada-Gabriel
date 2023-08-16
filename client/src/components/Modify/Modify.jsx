@@ -6,11 +6,12 @@ import style from "./Modify.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { RECIPES} from '../../Utils/URL';
+import { getRecipesById } from "../../redux/actions";
 
 const Modify = (props) => {
     const { id } = useParams();
     const diets=useSelector((state)=> state.diets);
-    const recipes=useSelector((state)=> state.recipes);
+    const recipeById= useSelector((state) => state.recipeById);
     const dispatch = useDispatch();
     const [newRecipe,setNewRecipe]=useState({})
     const [errors, setErrors] = useState({});
@@ -35,20 +36,13 @@ const Modify = (props) => {
   
   }*/
 
-    useEffect(() => {
-        axios(`${RECIPES}${id}`).then(
-          ({ data }) => {
-            if (data.title) {
-                let recipe = data;
-                recipe.diets=[]
-                setNewRecipe(data);
-            } else {
-              window.alert("No recipes found");
-            }
-          }
-        );
-        return setNewRecipe({});
-      }, [id]);
+  useEffect(() => {
+    dispatch(getRecipesById(id));
+  }, [id]);
+
+  useEffect(() => {
+    setNewRecipe(recipeById)
+  }, [recipeById]);
 
      /* useEffect(()=>{
         if(selectedDiets.length>0 && inputRefs.current.length>0 && newRecipe){
