@@ -15,6 +15,9 @@ export function getRecipes() {
 		axios.get(RECIPES)
 		.then((response) => {
 			dispatch({ type: GET_RECIPES, payload: response.data });
+		}).catch((error) => {
+			console.error('An error occurred:', error.message);
+			
 		});
 	};
 }
@@ -24,6 +27,9 @@ export function getDiets() {
 		axios.get(DIETS)
 		.then((response) => {
 			dispatch({ type: GET_DIETS, payload: response.data });
+		}).catch((error) => {
+			console.error('An error occurred:', error.message);
+			
 		});
 	};
 }
@@ -57,12 +63,16 @@ export function getRecipesByName(name) {
 
 export const addRecipe =  (recipe) => {
 	return async (dispatch) => {
-	   const {data}= await axios.post(RECIPES, recipe)
+		try {
+			const {data}= await axios.post(RECIPES, recipe)
 		  
 		   return dispatch({
 			 type: ADD_RECIPES,
 			 payload: data,
 		  });
+		} catch (error) {
+			console.error('An error occurred:', error.message);
+		}
 	   
 	};
   };
@@ -87,11 +97,16 @@ export const addRecipe =  (recipe) => {
   export const deleteRecipe = (id) => {
 	const endpoint = RECIPES + id;
 	return async (dispatch) => {
-	   const {data}= await axios.delete(endpoint);
+		try {
+			const {data}= await axios.delete(endpoint);
 	   
 		  return dispatch({
 			 type: DEL_RECIPES,
 			 payload: data,
 	   });
+		} catch (error) {
+			console.error('An error occurred:', error.message);
+		}
+	   
 	};
   };

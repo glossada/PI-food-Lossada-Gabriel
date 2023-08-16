@@ -40,7 +40,7 @@ export default function ToolBar(props) {
       <button className={style.sortButton} onClick={props.prevHandler}>
             {"<-Prev"}
           </button>
-          <p>Page {props.currentPage}</p>
+          <p className={style.page}> Page {props.currentPage}</p>
           <button className={style.sortButton} onClick={props.nextHandler}>
             {"Next->"}
           </button>
